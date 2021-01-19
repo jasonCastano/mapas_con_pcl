@@ -39,7 +39,10 @@ typedef pcl::PointCloud<PointT> PointCloud;
 typedef pcl::PointNormal PointNormalT;
 typedef pcl::PointCloud<PointNormalT> PointCloudWithNormals;
 
-
+/*
+Esta representación es implementada en el tutorial y se le es suministrada al algoritmo de ICP pero para ello se requiere que la versión de pcl cuente 
+con memory.h, las versiones de pcl de ROS no cuenta con esta librería, sin embargo es posible correr el ejemplo sin tener en cuenta esta representación. 
+*/
 class MyPointRepresentation : public pcl::PointRepresentation <PointNormalT>
 {
   using pcl::PointRepresentation<PointNormalT>::nr_dimensions_;
@@ -164,11 +167,13 @@ void pairAlign (const PointCloud::Ptr loc_cloud_src, const PointCloud::Ptr loc_c
 
   //add the source to the transformed target
   *cloud_src_rgb += *cloud_tg_rgb;
+  //La nube de puntos Source se transfiere a la nube de puntos Target y así se acumulan las nubes de puntos
   pcl::copyPointCloud(*cloud_src_rgb, *cloud_tg_rgb);
   
   //final_transform = targetToSource;
  }
 
+//Se lee la nube de puntos Target, la cual es el objetivo del emparejamiento
  void pc_tg_callback(const sensor_msgs::PointCloud2ConstPtr& cloud){
 
     pcl::fromROSMsg(*cloud, *cloud_tg_rgb);
@@ -178,7 +183,7 @@ void pairAlign (const PointCloud::Ptr loc_cloud_src, const PointCloud::Ptr loc_c
 
 }
 
-
+//Se lee la nube de puntos Source que será alineada con la nube de puntos Target
 void pc_src_callback(const sensor_msgs::PointCloud2ConstPtr& cloud){
 
     pcl::fromROSMsg(*cloud, *cloud_src_rgb);
