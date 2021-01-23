@@ -20,3 +20,9 @@ que es acumulada en cada toma se publica en el topic *point_cloud_map*.
 ## 4 
 
 Se corre *rosrun rviz rviz* y se visualiza la nube de puntos del topic *point_cloud_map*
+
+## Resultados
+
+![Screenshot from 2021-01-23 16-46-10](https://user-images.githubusercontent.com/77637361/105614928-a33d9180-5d9a-11eb-92b1-34907daae6d6.png)
+
+
